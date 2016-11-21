@@ -3,8 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/lab123/aws-sns.svg?style=flat-square)](https://packagist.org/packages/lab123/aws-sns)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/lab123/aws-sns/master.svg?style=flat-square)](https://travis-ci.org/lab123/aws-sns)
-[![StyleCI](https://styleci.io/repos/:style_ci_id/shield)](https://styleci.io/repos/:style_ci_id)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/:sensio_labs_id.svg?style=flat-square)](https://insight.sensiolabs.com/projects/:sensio_labs_id)
 [![Quality Score](https://img.shields.io/scrutinizer/g/lab123/aws-sns.svg?style=flat-square)](https://scrutinizer-ci.com/g/lab123/aws-sns)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/lab123/aws-sns/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/lab123/aws-sns/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/lab123/aws-sns.svg?style=flat-square)](https://packagist.org/packages/lab123/aws-sns)
