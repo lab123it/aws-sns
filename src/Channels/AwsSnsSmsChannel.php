@@ -42,8 +42,5 @@ class AwsSnsSmsChannel
         if ($response["@metadata"]["statusCode"] != 200) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);
         }
-        
-        var_dump('SMS');
-        var_dump($response);
     }
 }

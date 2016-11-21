@@ -42,8 +42,5 @@ class AwsSnsTopicChannel
         if ($response["@metadata"]["statusCode"] != 200) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);
         }
-        
-        var_dump('Topic');
-        var_dump($response);
     }
 }
