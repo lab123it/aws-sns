@@ -1,0 +1,46 @@
+{
+	"name": "lab123/aws-sns",
+	"description": "Amazon SNS Notifications Channel for Laravel 5.3",
+	"homepage": "https://github.com/lab123ti/aws-sns",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Jean Pierre",
+			"email": "jean.pierre@lab123.com.br",
+			"homepage": "https://lab123.com.br",
+			"role": "Developer"
+		},
+		{
+			"name": "Felipe Santos",
+			"email": "felipe.santos@lab123.com.br",
+			"homepage": "https://lab123.com.br",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.6.4",
+		"illuminate/notifications": "^5.3",
+		"illuminate/support": "^5.1|^5.2|^5.3",
+		"aws/aws-sdk-php-laravel": "~3.0"
+	},
+	"require-dev": {
+		"mockery/mockery": "^0.9.5",
+		"phpunit/phpunit": "4.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Lab123\\AwsSns\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Lab123\\AwsSns\\Test\\": "tests"
+		}
+	},
+	"scripts": {
+		"test": "vendor/bin/phpunit"
+	},
+	"config": {
+		"sort-packages": true
+	}
+}
