@@ -14,9 +14,10 @@ This package makes it easy to send notifications using [Amazon SNS](https://aws.
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the AwsSns service](#setting-up-the-AwsSns-service)
+	- [Setting up the AwsSns service](#setting-up-the-awssns-service)
 - [Usage](#usage)
-	- [Available Message methods](#available-message-methods)
+	- [Sending SMS](#sending-sms)
+	- [Sending Topic](#sending-topic)
 - [Changelog](#changelog)
 - [Testing](#testing)
 - [Security](#security)
@@ -67,7 +68,7 @@ Next we need to add this keys to our Laravel environment. Edit file `.env` to co
 
 ## Usage
 
-### SMS ###
+### Sending SMS ###
 
 To send sms without the need to create a topic, leave the `function via` as follows:
 
@@ -100,7 +101,7 @@ Add function `toAwsSnsSms()` expected by class `AwsSnsSmsChannel` to send notifi
 **Obs.: ** The expected number use the standards-based international [E.123](https://en.wikipedia.org/wiki/E.123) 
 **eg.:** +5511999999999 
 
-### Topic ###
+### Sending Topic ###
 
 To send notification to a topic, leave the `function via` as follows:
 
