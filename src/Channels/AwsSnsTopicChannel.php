@@ -24,6 +24,7 @@ class AwsSnsTopicChannel
     public function send($notifiable, Notification $notification)
     {
         $message = $notification->toAwsSnsTopic($notifiable);
+        $message->topicArn = ($message->topicArn) ?: $notifiable->routeNotificationFor('AwsSnsTopic');
         
         if (! $message->topicArn && ! $message->message) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);

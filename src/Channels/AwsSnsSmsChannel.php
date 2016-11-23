@@ -24,6 +24,7 @@ class AwsSnsSmsChannel
     public function send($notifiable, Notification $notification)
     {
         $message = $notification->toAwsSnsSms($notifiable);
+        $message->phoneNumber = ($message->phoneNumber) ?: $notifiable->routeNotificationFor('AwsSnsSms');
         
         if (! $message->phoneNumber && ! $message->message) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);

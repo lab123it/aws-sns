@@ -70,6 +70,7 @@ Next we need to add this keys to our Laravel environment. Edit file `.env` to co
 
 To send sms without the need to create a topic, leave the `function via` as follows:
 
+	// Notifications/Welcome.php
     /**
      * Get the notification channels.
      *
@@ -85,6 +86,7 @@ To send sms without the need to create a topic, leave the `function via` as foll
 
 Add function `toAwsSnsSms()` expected by class `AwsSnsSmsChannel` to send notification:
 
+	// Notifications/Welcome.php
 	/**
      * Get the AWS SNS SMS Message representation of the notification.
      *
@@ -95,14 +97,29 @@ Add function `toAwsSnsSms()` expected by class `AwsSnsSmsChannel` to send notifi
     {
         return (new AwsSnsMessage())->message('Message Here')->phoneNumber('+5511999999999');
     }
+    
+You also can ignore the `->phoneNumber()` in your notification and use function `routeNotificationForAwsSnsSms` in your Model Notifiable: 
+
+	// Models/User.php
+	/**
+     * Route notifications for the Aws SNS SMS channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForAwsSnsSms()
+    {
+        return $this->phone_number;
+    }
 
 **Obs.: ** The expected number use the standards-based international [E.123](https://en.wikipedia.org/wiki/E.123) 
+
 **eg.:** +5511999999999 
 
 ### Sending Topic ###
 
 To send notification to a topic, leave the `function via` as follows:
 
+	// Notifications/Welcome.php
     /**
      * Get the notification channels.
      *
@@ -118,6 +135,7 @@ To send notification to a topic, leave the `function via` as follows:
 
 Add function `toAwsSnsTopic()` expected by class `AwsSnsTopicChannel` to send notification:
 
+	// Notifications/Welcome.php
 	/**
      * Get the AWS SNS Topic Message representation of the notification.
      *
@@ -127,6 +145,19 @@ Add function `toAwsSnsTopic()` expected by class `AwsSnsTopicChannel` to send no
     public function toAwsSnsTopic($notifiable)
     {
         return (new AwsSnsMessage())->message('Message Here')->topicArn('arn:aws:sns:us-east-1:000000000000:name-topic');
+    }
+    
+You also can ignore the `->topicArn()` in your notification and use function `routeNotificationForAwsSnsTopic` in your Model Notifiable: 
+
+	// Models/User.php
+	/**
+     * Route notifications for the Aws SNS Topic channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForAwsSnsTopic()
+    {
+        return $this->topicArn;
     }
 
 ### Available methods
