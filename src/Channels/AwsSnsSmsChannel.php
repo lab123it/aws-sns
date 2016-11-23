@@ -26,8 +26,8 @@ class AwsSnsSmsChannel
         $message = $notification->toAwsSnsSms($notifiable);
         $message->phoneNumber = ($message->phoneNumber) ?: $notifiable->routeNotificationFor('AwsSnsSms');
         
-        if (! $message->phoneNumber && ! $message->message) {
-            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+        if (! $message->phoneNumber || ! $message->message) {
+            return;
         }
         
         $data = [
@@ -41,7 +41,7 @@ class AwsSnsSmsChannel
         $response = $response->toArray();
         
         if ($response["@metadata"]["statusCode"] != 200) {
-            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+            throw CouldNotSendNotification::serviceRespondedWithAnError();
         }
     }
 }

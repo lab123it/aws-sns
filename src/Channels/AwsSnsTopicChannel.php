@@ -26,8 +26,8 @@ class AwsSnsTopicChannel
         $message = $notification->toAwsSnsTopic($notifiable);
         $message->topicArn = ($message->topicArn) ?: $notifiable->routeNotificationFor('AwsSnsTopic');
         
-        if (! $message->topicArn && ! $message->message) {
-            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+        if (! $message->topicArn || ! $message->message) {
+            return;
         }
         
         $data = [
@@ -41,7 +41,7 @@ class AwsSnsTopicChannel
         $response = $response->toArray();
         
         if ($response["@metadata"]["statusCode"] != 200) {
-            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+            throw CouldNotSendNotification::serviceRespondedWithAnError();
         }
     }
 }
