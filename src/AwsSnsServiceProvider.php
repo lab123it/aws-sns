@@ -10,9 +10,24 @@ class AwsSnsServiceProvider extends ServiceProvider
 {
 
     /**
+     * Register the application services.
+     */
+    public function register()
+    {}
+
+    /**
      * Bootstrap the application services.
      */
     public function boot()
+    {
+        $this->publishConfigs();
+        
+        $this->registerConfigs();
+        
+        $this->bindingSnsClient();
+    }
+
+    private function bindingSnsClient()
     {
         $this->app->when(AwsSnsSmsChannel::class)
             ->needs(SnsClient::class)
@@ -42,8 +57,24 @@ class AwsSnsServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the application services.
+     * Publish configs.
+     *
+     * @return void
      */
-    public function register()
-    {}
+    protected function publishConfigs()
+    {
+        $this->publishes([
+            __DIR__ . '/Config/aws-sns.php' => config_path('aws-sns.php')
+        ], 'config');
+    }
+
+    /**
+     * Register configs.
+     *
+     * @return void
+     */
+    protected function registerConfigs()
+    {
+        app()->configure('aws-sns');
+    }
 }

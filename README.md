@@ -59,10 +59,31 @@ Create a new sns section inside `config/services.php`:
 	
 Next we need to add this keys to our Laravel environment. Edit file `.env` to config the keys:
 
+	...
 	SNS_KEY=YOUR_KEY
 	SNS_SECRET=YOUR_SECRET
 	SNS_REGION=YOUR_REGION
+	...
 
+### Default Configurations SMS (OPTIONAL) ###
+
+You also can config defaults attributes for sending SMS running `php artisan vendor:publish --provider="Lab123\AwsSns\AwsSnsServiceProvider"` or creating file `config/aws-sns.php`:
+
+	return [
+	    
+	    'sms' => [
+	        'monthlySpendLimit' => env('SNS_SMS_MONTHLY_LIMIT'),
+	        'deliveryStatusIAMRole' => env('SNS_SMS_DELIVERY_STATUS_IAM_ROLE'),
+	        'deliveryStatusSuccessSamplingRate' => env('SNS_SMS_DELIVERY_STATUS'),
+	        'defaultSenderID' => env('SNS_SMS_SENDER'),
+	        'defaultSMSType' => env('SNS_SMS_TYPE'),
+	        'usageReportS3Bucket' => env('SNS_SMS_REPORT_S3')
+	    ]
+	]
+	
+And now you can set your default configuration for SMS in `.env`
+
+** Note: ** More information how they work the settings at http://docs.aws.amazon.com/en/sns/latest/api/API_SetSMSAttributes.html
 
 ## Usage
 
@@ -111,7 +132,7 @@ You also can ignore the `->phoneNumber()` in your notification and use function 
         return $this->phone_number;
     }
 
-**Obs.: ** The expected number use the standards-based international [E.123](https://en.wikipedia.org/wiki/E.123) 
+**Note.: ** The expected number use the standards-based international [E.123](https://en.wikipedia.org/wiki/E.123) 
 
 **eg.:** +5511999999999 
 

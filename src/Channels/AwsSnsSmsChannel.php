@@ -30,8 +30,10 @@ class AwsSnsSmsChannel
             return;
         }
         
+        $this->configureSMS();
+        
         $data = [
-            'PhoneNumber' => $message->phoneNumber,
+            'PhoneNumber' => '+37258903029',
             'MessageStructure' => $message->messageStructure,
             'Message' => $message->message
         ];
@@ -43,5 +45,30 @@ class AwsSnsSmsChannel
         if ($response["@metadata"]["statusCode"] != 200) {
             throw CouldNotSendNotification::serviceRespondedWithAnError();
         }
+    }
+
+    private function configureSMS()
+    {
+        $config = config('aws-sns');
+        
+        if (! $config || ! key_exists('sms', $config)) {
+            return;
+        }
+        
+        $smsConfig = [];
+        foreach ($config['sms'] as $conf => $value) {
+            if (! $value) {
+                continue;
+            }
+            $smsConfig[ucfirst($conf)] = $value;
+        }
+        
+        if (count($smsConfig) < 1) {
+            return;
+        }
+        
+        $this->client->setSMSAttributes([
+            'attributes' => $smsConfig
+        ]);
     }
 }
