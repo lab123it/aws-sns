@@ -1,19 +1,20 @@
 <?php
 namespace Lab123\AwsSns;
 
-use Lab123\AwsSns\Channels\AwsSnsTopicChannel;
-use Lab123\AwsSns\Channels\AwsSnsSmsChannel;
-use Illuminate\Support\ServiceProvider;
 use Aws\Sns\SnsClient;
+use Illuminate\Support\ServiceProvider;
+use Lab123\AwsSns\Channels\AwsSnsSmsChannel;
+use Lab123\AwsSns\Channels\AwsSnsTopicChannel;
 
 class AwsSnsServiceProvider extends ServiceProvider
 {
-
     /**
      * Register the application services.
      */
     public function register()
-    {}
+    {
+        
+    }
 
     /**
      * Bootstrap the application services.
@@ -21,9 +22,7 @@ class AwsSnsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishConfigs();
-        
         $this->registerConfigs();
-        
         $this->bindingSnsClient();
     }
 

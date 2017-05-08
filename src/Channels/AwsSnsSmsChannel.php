@@ -33,7 +33,7 @@ class AwsSnsSmsChannel
         $this->configureSMS();
         
         $data = [
-            'PhoneNumber' => '+37258903029',
+            'PhoneNumber' => $message->phoneNumber,
             'MessageStructure' => $message->messageStructure,
             'Message' => $message->message
         ];
