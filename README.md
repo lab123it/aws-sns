@@ -35,13 +35,26 @@ Or editing the `composer.json` file:
 	"require": {
     	"lab123/aws-sns": "dev-master"
     }
-    
-You must install the service provider in `config/app.php`:
+
+You must install the service provider.
+
+**Laravel 5.x**
+
+configure in `config/app.php`:
 
 	'providers' => [
 	    ...
 	    Lab123\AwsSns\AwsSnsServiceProvider::class,
-	],
+	]
+	
+**Lumen 5.x**
+
+configure in `bootstrap/app.php`:
+
+	$app->register(\Lab123\AwsSns\AwsSnsLumenServiceProvider::class);
+
+** Note: ** You go need make a wrapper [Laravel Notification](https://laracasts.com/discuss/channels/lumen/notification-in-lumen-53 "Laravel Notification") or use a package how 
+[Lumen Notification](https://packagist.org/packages/lab123/lumen-notification "Lumen Notification") 
 
 ### Setting up the AwsSns service
 

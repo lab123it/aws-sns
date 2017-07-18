@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Lab123\AwsSns\Channels\AwsSnsSmsChannel;
 use Lab123\AwsSns\Channels\AwsSnsTopicChannel;
 
-class AwsSnsServiceProvider extends ServiceProvider
+class AwsSnsLumenServiceProvider extends ServiceProvider
 {
     /**
      * Register the application services.
@@ -74,6 +74,6 @@ class AwsSnsServiceProvider extends ServiceProvider
      */
     protected function registerConfigs()
     {
-        config('aws-sns');
+        app()->configure('aws-sns');
     }
 }
