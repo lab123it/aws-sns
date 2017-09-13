@@ -2,6 +2,9 @@
 
 All notable changes to `aws-sns` will be documented in this file
 
+## Master - 2017-09-12
+- Command for composer changed to use `dev-master` version
+
 ## Master - 2017-07-17
 
 - Fix Lumen Style config to Laravel Style

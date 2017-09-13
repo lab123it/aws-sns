@@ -28,7 +28,7 @@ This package makes it easy to send notifications using [Amazon SNS](https://aws.
 
 Can to install with commands:
 
-	composer require lab123/aws-sns
+	composer require lab123/aws-sns:dev-master
 	
 Or editing the `composer.json` file:
 
