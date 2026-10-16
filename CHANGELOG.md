@@ -16,8 +16,6 @@ Breaking release. The package is rebuilt for current Laravel and the AWS SDK for
 - Channels and exceptions are typed.
 - Added tests and a GitHub Actions matrix (PHP 8.2 to 8.5).
 
-The last release for Laravel/Lumen 5. Previously only available as `dev-master`.
-
 ## Master - 2017-09-12
 - Command for composer changed to use `dev-master` version
 
