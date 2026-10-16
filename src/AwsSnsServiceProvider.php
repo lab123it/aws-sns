@@ -1,4 +1,5 @@
 <?php
+
 namespace Lab123\AwsSns;
 
 use Aws\Sns\SnsClient;
@@ -11,69 +12,41 @@ class AwsSnsServiceProvider extends ServiceProvider
     /**
      * Register the application services.
      */
-    public function register()
+    public function register(): void
     {
-        
+        $this->mergeConfigFrom(__DIR__ . '/Config/aws-sns.php', 'aws-sns');
+
+        foreach ([AwsSnsSmsChannel::class, AwsSnsTopicChannel::class] as $channel) {
+            $this->app->when($channel)
+                ->needs(SnsClient::class)
+                ->give(fn () => $this->makeSnsClient());
+        }
     }
 
     /**
      * Bootstrap the application services.
      */
-    public function boot()
-    {
-        $this->publishConfigs();
-        $this->registerConfigs();
-        $this->bindingSnsClient();
-    }
-
-    private function bindingSnsClient()
-    {
-        $this->app->when(AwsSnsSmsChannel::class)
-            ->needs(SnsClient::class)
-            ->give(function () {
-            return $this->giveSnsInstance();
-        });
-        
-        $this->app->when(AwsSnsTopicChannel::class)
-            ->needs(SnsClient::class)
-            ->give(function () {
-            return $this->giveSnsInstance();
-        });
-    }
-
-    private function giveSnsInstance()
-    {
-        $config = config('services.sns');
-        
-        return SnsClient::factory([
-            'credentials' => [
-                'key' => $config['key'],
-                'secret' => $config['secret']
-            ],
-            'version' => 'latest',
-            'region' => $config['region']
-        ]);
-    }
-
-    /**
-     * Publish configs.
-     *
-     * @return void
-     */
-    protected function publishConfigs()
+    public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/Config/aws-sns.php' => config_path('aws-sns.php')
+            __DIR__ . '/Config/aws-sns.php' => $this->app->configPath('aws-sns.php'),
         ], 'config');
     }
 
     /**
-     * Register configs.
-     *
-     * @return void
+     * Build the SNS client from the `services.sns` configuration.
      */
-    protected function registerConfigs()
+    private function makeSnsClient(): SnsClient
     {
-        config('aws-sns');
+        $config = $this->app['config']->get('services.sns');
+
+        return new SnsClient([
+            'credentials' => [
+                'key' => $config['key'],
+                'secret' => $config['secret'],
+            ],
+            'version' => 'latest',
+            'region' => $config['region'],
+        ]);
     }
 }

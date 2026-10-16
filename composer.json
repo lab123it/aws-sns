@@ -1,7 +1,14 @@
 {
 	"name": "lab123/aws-sns",
-	"description": "Amazon SNS Notifications Channel for Laravel 5.3",
-	"homepage": "https://github.com/lab123ti/aws-sns",
+	"description": "Amazon SNS notification channels (SMS and topics) for Laravel",
+	"keywords": [
+		"laravel",
+		"notification",
+		"aws",
+		"sns",
+		"sms"
+	],
+	"homepage": "https://github.com/lab123it/aws-sns",
 	"license": "MIT",
 	"authors": [
 		{
@@ -9,23 +16,17 @@
 			"email": "jean.pierre@lab123.com.br",
 			"homepage": "https://lab123.com.br",
 			"role": "Developer"
-		},
-		{
-			"name": "Felipe Santos",
-			"email": "felipe.santos@lab123.com.br",
-			"homepage": "https://lab123.com.br",
-			"role": "Developer"
 		}
 	],
 	"require": {
-		"php": ">=5.6.4",
-		"illuminate/notifications": "^5.3",
-		"illuminate/support": "^5.1|^5.2|^5.3",
-		"aws/aws-sdk-php-laravel": "~3.0"
+		"php": "^8.2",
+		"aws/aws-sdk-php": "^3.300",
+		"illuminate/notifications": "^12.60|^13.10",
+		"illuminate/support": "^12.60|^13.10"
 	},
 	"require-dev": {
-		"mockery/mockery": "^0.9.5",
-		"phpunit/phpunit": "4.*"
+		"orchestra/testbench": "^10.0|^11.0",
+		"phpunit/phpunit": "^11.5|^12.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -37,10 +38,19 @@
 			"Lab123\\AwsSns\\Test\\": "tests"
 		}
 	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Lab123\\AwsSns\\AwsSnsServiceProvider"
+			]
+		}
+	},
 	"scripts": {
-		"test": "vendor/bin/phpunit"
+		"test": "phpunit"
 	},
 	"config": {
 		"sort-packages": true
-	}
+	},
+	"minimum-stability": "stable",
+	"prefer-stable": true
 }
