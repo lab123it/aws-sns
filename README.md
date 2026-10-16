@@ -5,13 +5,17 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Total Downloads](https://img.shields.io/packagist/dt/lab123/aws-sns.svg?style=flat-square)](https://packagist.org/packages/lab123/aws-sns)
 
-Send Laravel notifications through [Amazon SNS](https://aws.amazon.com/sns/): SMS to a phone number or a message to a topic.
+Send notifications through [Amazon SNS](https://aws.amazon.com/sns/) from Laravel or Lumen: SMS to a phone number or a message to a topic.
 
 ## Requirements
 
-- PHP ^8.2
-- Laravel (`illuminate/*`) ^12.60 or ^13.10
+- PHP ^8.1
+- Lumen 10 or 11, or Laravel 10, 11, 12 or 13 (`illuminate/*` ^10.0, ^11.0, ^12.60 or ^13.10)
 - `aws/aws-sdk-php` ^3
+
+Verified in real applications: Lumen 10.0 and 11.1, Laravel 10.50, 11.57, 12.70 and 13.37, sending SMS and topic messages against a local SNS endpoint.
+
+Lumen 5 to 9 and Laravel 5 to 9 apps cannot use this release; stay on `lab123/aws-sns:^1.0` (the pre-2.0 code).
 
 ## Installation
 
@@ -19,7 +23,26 @@ Send Laravel notifications through [Amazon SNS](https://aws.amazon.com/sns/): SM
 composer require lab123/aws-sns
 ```
 
-The service provider is auto-discovered.
+### Laravel 10 and 11, Lumen 10 and 11: security advisory
+
+Composer blocks `illuminate/mail` 10 and 11 (a dependency of `illuminate/notifications`) because of advisory [PKSA-zwc5-qtrz-zm1n](https://packagist.org/security-advisories/PKSA-zwc5-qtrz-zm1n). Laravel 10 and 11 are end of life and **have no fix**; only `illuminate/*` ^12.60 and ^13.10 are patched. If you stay on 10 or 11 you accept that risk, and can install with:
+
+```bash
+composer config policy.advisories.ignore-id --json '["PKSA-zwc5-qtrz-zm1n"]'
+composer require lab123/aws-sns
+```
+
+### Register the provider
+
+Laravel: the service provider is auto-discovered.
+
+Lumen (`bootstrap/app.php`), together with a notification setup such as [lab123/lumen-notification](https://packagist.org/packages/lab123/lumen-notification):
+
+```php
+$app->register(\Lab123\AwsSns\AwsSnsServiceProvider::class);
+```
+
+`AwsSnsLumenServiceProvider` from earlier versions still works as an alias.
 
 ### Configure the SNS credentials
 

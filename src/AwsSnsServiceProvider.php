@@ -3,6 +3,7 @@
 namespace Lab123\AwsSns;
 
 use Aws\Sns\SnsClient;
+use Illuminate\Foundation\Application as FoundationApplication;
 use Illuminate\Support\ServiceProvider;
 use Lab123\AwsSns\Channels\AwsSnsSmsChannel;
 use Lab123\AwsSns\Channels\AwsSnsTopicChannel;
@@ -14,6 +15,8 @@ class AwsSnsServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->loadLumenConfigs();
+
         $this->mergeConfigFrom(__DIR__ . '/Config/aws-sns.php', 'aws-sns');
 
         foreach ([AwsSnsSmsChannel::class, AwsSnsTopicChannel::class] as $channel) {
@@ -29,8 +32,29 @@ class AwsSnsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/Config/aws-sns.php' => $this->app->configPath('aws-sns.php'),
+            __DIR__ . '/Config/aws-sns.php' => $this->configPath('aws-sns.php'),
         ], 'config');
+    }
+
+    /**
+     * Lumen only reads a config file when asked to.
+     *
+     * Laravel's Application has an unrelated static configure(), so only
+     * applications that are not Laravel's are treated as Lumen-style.
+     */
+    private function loadLumenConfigs(): void
+    {
+        if (! $this->app instanceof FoundationApplication && method_exists($this->app, 'configure')) {
+            $this->app->configure('services');
+            $this->app->configure('aws-sns');
+        }
+    }
+
+    private function configPath(string $file): string
+    {
+        return $this->app instanceof FoundationApplication
+            ? $this->app->configPath($file)
+            : $this->app->basePath('config/' . $file);
     }
 
     /**
