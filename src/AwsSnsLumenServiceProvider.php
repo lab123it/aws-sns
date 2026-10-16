@@ -7,6 +7,4 @@ namespace Lab123\AwsSns;
  *
  * AwsSnsServiceProvider detects Lumen-style applications by itself.
  */
-class AwsSnsLumenServiceProvider extends AwsSnsServiceProvider
-{
-}
+class AwsSnsLumenServiceProvider extends AwsSnsServiceProvider {}

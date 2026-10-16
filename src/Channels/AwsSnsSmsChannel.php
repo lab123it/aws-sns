@@ -8,14 +8,12 @@ use Lab123\AwsSns\Exceptions\CouldNotSendNotification;
 
 class AwsSnsSmsChannel
 {
-    public function __construct(protected SnsClient $client)
-    {
-    }
+    public function __construct(protected SnsClient $client) {}
 
     /**
      * Send the given notification.
      *
-     * @throws \Lab123\AwsSns\Exceptions\CouldNotSendNotification
+     * @throws CouldNotSendNotification
      */
     public function send(mixed $notifiable, Notification $notification): void
     {

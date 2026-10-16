@@ -17,7 +17,7 @@ class AwsSnsServiceProvider extends ServiceProvider
     {
         $this->loadLumenConfigs();
 
-        $this->mergeConfigFrom(__DIR__ . '/Config/aws-sns.php', 'aws-sns');
+        $this->mergeConfigFrom(__DIR__.'/Config/aws-sns.php', 'aws-sns');
 
         foreach ([AwsSnsSmsChannel::class, AwsSnsTopicChannel::class] as $channel) {
             $this->app->when($channel)
@@ -32,7 +32,7 @@ class AwsSnsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/Config/aws-sns.php' => $this->configPath('aws-sns.php'),
+            __DIR__.'/Config/aws-sns.php' => $this->configPath('aws-sns.php'),
         ], 'config');
     }
 
@@ -54,7 +54,7 @@ class AwsSnsServiceProvider extends ServiceProvider
     {
         return $this->app instanceof FoundationApplication
             ? $this->app->configPath($file)
-            : $this->app->basePath('config/' . $file);
+            : $this->app->basePath('config/'.$file);
     }
 
     /**
