@@ -13,12 +13,11 @@ class ChannelsTest extends TestCase
 {
     private function notifiable(?string $phone = null, ?string $topic = null): object
     {
-        return new class($phone, $topic) {
+        return new class($phone, $topic)
+        {
             use Notifiable;
 
-            public function __construct(private ?string $phone, private ?string $topic)
-            {
-            }
+            public function __construct(private ?string $phone, private ?string $topic) {}
 
             public function routeNotificationForAwsSnsSms(): ?string
             {
@@ -34,10 +33,9 @@ class ChannelsTest extends TestCase
 
     private function smsNotification(AwsSnsMessage $message): Notification
     {
-        return new class($message) extends Notification {
-            public function __construct(private AwsSnsMessage $message)
-            {
-            }
+        return new class($message) extends Notification
+        {
+            public function __construct(private AwsSnsMessage $message) {}
 
             public function via($notifiable): array
             {
@@ -53,10 +51,9 @@ class ChannelsTest extends TestCase
 
     private function topicNotification(AwsSnsMessage $message): Notification
     {
-        return new class($message) extends Notification {
-            public function __construct(private AwsSnsMessage $message)
-            {
-            }
+        return new class($message) extends Notification
+        {
+            public function __construct(private AwsSnsMessage $message) {}
 
             public function via($notifiable): array
             {

@@ -3,8 +3,8 @@
 namespace Lab123\AwsSns\Test;
 
 use Aws\CommandInterface;
-use Aws\MockHandler;
 use Aws\Middleware;
+use Aws\MockHandler;
 use Aws\Result;
 use Aws\Sns\SnsClient;
 use Lab123\AwsSns\AwsSnsServiceProvider;
