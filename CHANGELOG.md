@@ -16,7 +16,6 @@ Breaking release: the package is rebuilt for current Laravel/Lumen and the AWS S
   (`SnsClient::factory()` no longer exists in SDK v3).
 - The service provider is auto-discovered in Laravel, merges the `aws-sns` config, and
   registers the contextual `SnsClient` binding in `register()`.
-- `v1.0.0` is tagged on the last pre-2.0 commit for Laravel/Lumen 5 apps (`lab123/aws-sns:^1.0`).
 - Channels and exceptions are typed.
 - Added tests and a GitHub Actions matrix (PHP 8.1 to 8.5, Laravel 10 to 13).
 - `v1.0.0` is tagged on the last pre-2.0 commit for Laravel/Lumen 5 apps (`lab123/aws-sns:^1.0`).
