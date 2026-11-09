@@ -4,6 +4,10 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # phpunit 13 needs PHP >=8.4; package supports ^8.1
+      - dependency-name: phpunit/phpunit
+        update-types: ['version-update:semver-major']
   - package-ecosystem: github-actions
     directory: /
     schedule:
