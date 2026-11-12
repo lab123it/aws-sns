@@ -26,11 +26,19 @@ class AwsSnsSmsChannel
 
         $this->configureSMS();
 
-        $response = $this->client->publish([
+        $payload = [
             'PhoneNumber' => $message->phoneNumber,
             'MessageStructure' => $message->messageStructure,
             'Message' => $message->message,
-        ])->toArray();
+        ];
+
+        if ($message->senderId) {
+            $payload['MessageAttributes'] = [
+                'AWS.SNS.SMS.SenderID' => ['DataType' => 'String', 'StringValue' => $message->senderId],
+            ];
+        }
+
+        $response = $this->client->publish($payload)->toArray();
 
         if ($response['@metadata']['statusCode'] != 200) {
             throw CouldNotSendNotification::serviceRespondedWithAnError();

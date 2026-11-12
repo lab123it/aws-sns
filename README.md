@@ -117,6 +117,14 @@ public function routeNotificationForAwsSnsSms(): string
 }
 ```
 
+To send under a different Sender ID per message (for example when sending on behalf of several clients), use `->senderId()`. It overrides the account-wide `defaultSenderID` for that message only:
+
+```php
+return (new AwsSnsMessage('Message Here'))->phoneNumber('+5511999999999')->senderId('ACME');
+```
+
+Sender IDs are not supported in every country (for example the United States) and some countries require pre-registration; see the [AWS SMS country list](https://docs.aws.amazon.com/sns/latest/dg/sns-supported-regions-countries.html).
+
 Numbers use the international [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g. `+5511999999999`.
 
 ### Sending to a topic

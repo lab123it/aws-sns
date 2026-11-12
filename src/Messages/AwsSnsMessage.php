@@ -18,6 +18,8 @@ class AwsSnsMessage
 
     public $messageStructure = 'string';
 
+    public $senderId = '';
+
     /**
      * Create a new message instance.
      *
@@ -116,6 +118,21 @@ class AwsSnsMessage
     public function messageStructure($messageStructure)
     {
         $this->messageStructure = $messageStructure;
+
+        return $this;
+    }
+
+    /**
+     * Set the SMS Sender ID for this message only.
+     *
+     * Overrides the account-wide `defaultSenderID`. Not supported in every country.
+     *
+     * @param  string  $senderId
+     * @return $this
+     */
+    public function senderId($senderId)
+    {
+        $this->senderId = $senderId;
 
         return $this;
     }

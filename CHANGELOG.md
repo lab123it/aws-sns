@@ -2,6 +2,11 @@
 
 All notable changes to `aws-sns` are documented in this file.
 
+## Unreleased
+
+- `AwsSnsMessage::senderId()` sets the SMS Sender ID per message (`AWS.SNS.SMS.SenderID` message
+  attribute), overriding the account-wide `defaultSenderID`.
+
 ## 2.0.0
 
 Breaking release: the package is rebuilt for current Laravel/Lumen and the AWS SDK for PHP v3.
