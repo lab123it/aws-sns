@@ -118,6 +118,29 @@ class ChannelsTest extends TestCase
         );
     }
 
+    public function test_sms_sender_id_is_sent_as_a_message_attribute(): void
+    {
+        $this->fakeSns();
+
+        $this->notifiable('+5511888888888')->notifyNow(
+            $this->smsNotification((new AwsSnsMessage('Hi'))->senderId('ACME'))
+        );
+
+        $this->assertSame(
+            ['AWS.SNS.SMS.SenderID' => ['DataType' => 'String', 'StringValue' => 'ACME']],
+            $this->commands[0]['MessageAttributes']
+        );
+    }
+
+    public function test_sms_without_sender_id_sends_no_message_attributes(): void
+    {
+        $this->fakeSns();
+
+        $this->notifiable('+5511888888888')->notifyNow($this->smsNotification(new AwsSnsMessage('Hi')));
+
+        $this->assertFalse(isset($this->commands[0]['MessageAttributes']));
+    }
+
     public function test_sms_error_response_throws(): void
     {
         $this->fakeSns([202]);
