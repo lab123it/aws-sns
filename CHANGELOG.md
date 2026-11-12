@@ -2,7 +2,7 @@
 
 All notable changes to `aws-sns` are documented in this file.
 
-## Unreleased
+## 2.1.0
 
 - `AwsSnsMessage::senderId()` sets the SMS Sender ID per message (`AWS.SNS.SMS.SenderID` message
   attribute), overriding the account-wide `defaultSenderID`.
